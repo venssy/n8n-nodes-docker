@@ -8,3 +8,4 @@ yarn.lock
 .vscode/launch.json
 .pnpm-lock.yaml
 test.sh
+.vscode
