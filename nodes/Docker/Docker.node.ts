@@ -1,38 +1,37 @@
 import {
   INodeType,
   INodeTypeDescription,
-  NodeConnectionType,
 } from "n8n-workflow";
 import {
   N8NPropertiesBuilder,
   N8NPropertiesBuilderConfig,
 } from "@devlikeapro/n8n-openapi-node";
-import * as doc from "./openapi.json";
 import { fixOpenApi } from "../utils";
-fixOpenApi(doc)
-console.log("json: ok")
+import * as doc from "./openapi.json";
+
+fixOpenApi(doc);
 
 const config: N8NPropertiesBuilderConfig = {};
 const parser = new N8NPropertiesBuilder(doc, config);
 const properties = parser.build();
 
-export class PortainerApi implements INodeType {
+export class Docker implements INodeType {
   description: INodeTypeDescription = {
-    displayName: "Portainer",
-    name: "portainer",
-    icon: "file:logo.png",
+    displayName: "Docker",
+    name: "docker",
+    icon: "file:docker.svg",
     group: ["transform"],
     version: 1,
     subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
-    description: "Interact with Portainer via API",
+    description: "Interact with Docker via Portainer API",
     defaults: {
-      name: "Portainer",
+      name: "Docker",
     },
-    inputs: [NodeConnectionType.Main],
-    outputs: [NodeConnectionType.Main],
+    inputs: '={{"main"}}',
+    outputs: '={{"main"}}',
     credentials: [
       {
-        name: "portainerApi",
+        name: "dockerApi",
         required: true,
       },
     ],
@@ -41,8 +40,8 @@ export class PortainerApi implements INodeType {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      baseURL: "={{$credentials.url}}/api",
+      baseURL: "={{$credentials.url}}/api/endpoints/{{$credentials.endpointid}}/docker",
     },
-    properties: properties,
+    properties: properties
   };
 }
