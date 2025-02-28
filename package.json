@@ -4,6 +4,8 @@
   "description": "n8n nodes for docker",
   "keywords": [
     "n8n-community-node-package",
+    "n8n-nodes",
+    "n8n-nodes-docker",
     "docker"
   ],
   "license": "MIT",
@@ -63,6 +65,7 @@
     "n8n-workflow": "*"
   },
   "dependencies": {
-    "@devlikeapro/n8n-openapi-node": "^0.1.0"
+    "@devlikeapro/n8n-openapi-node": "^0.1.0",
+    "npx": "^10.2.2"
   }
 }
