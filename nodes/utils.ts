@@ -24,8 +24,7 @@ export function fixOpenApi(doc: any) {
           let bodys = path[_method]["parameters"].filter((item: any) => item["in"] == "body")
           let formDatas = path[_method]["parameters"].filter((item: any) => item["in"] == "formData")
           path[_method]["parameters"] = path[_method]["parameters"].filter((item: any) =>
-            item["in"] != "body" && item["in"] != "formData" &&
-              item["in"] != "query"
+            item["in"] != "body" && item["in"] != "formData"
           )
 
           let requestBody = {
