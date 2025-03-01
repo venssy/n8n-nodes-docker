@@ -1,6 +1,9 @@
 import {
+  ILoadOptionsFunctions,
+  INodePropertyOptions,
   INodeType,
   INodeTypeDescription,
+  NodeConnectionType,
 } from "n8n-workflow";
 import {
   N8NPropertiesBuilder,
@@ -8,6 +11,8 @@ import {
 } from "@devlikeapro/n8n-openapi-node";
 import { fixOpenApi } from "../utils";
 import * as doc from "./openapi.json";
+import { portainerEndpoint } from "./descriptions";
+import { portainerApiRequest } from "./GeniricFunctions";
 
 fixOpenApi(doc);
 
@@ -27,11 +32,11 @@ export class Docker implements INodeType {
     defaults: {
       name: "Docker",
     },
-    inputs: '={{"main"}}',
-    outputs: '={{"main"}}',
+    inputs: [NodeConnectionType.Main],
+    outputs: [NodeConnectionType.Main],
     credentials: [
       {
-        name: "dockerApi",
+        name: "portainerApi",
         required: true,
       },
     ],
@@ -40,8 +45,39 @@ export class Docker implements INodeType {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      baseURL: "={{$credentials.url}}/api/endpoints/{{$credentials.endpointid}}/docker",
+      baseURL: "={{$credentials.url}}/api/endpoints/{{$parameter['endpointId']}}/docker",
     },
-    properties: properties
+    properties: [
+      portainerEndpoint,
+      ...properties
+    ]
   };
+
+  methods = {
+    loadOptions: {
+			async getEndpoints(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const returnData: INodePropertyOptions[] = [];
+
+        const endpoints = await portainerApiRequest.call(this, 'GET', "/api/endpoints") as Array<{ Name: string, Id: number }>
+				for (const user of endpoints) {
+					returnData.push({
+						name: user.Name,
+						value: user.Id,
+					});
+				}
+
+				returnData.sort((a, b) => {
+					if (a.name < b.name) {
+						return -1;
+					}
+					if (a.name > b.name) {
+						return 1;
+					}
+					return 0;
+				});
+
+				return returnData;
+			}
+		}
+  }
 }

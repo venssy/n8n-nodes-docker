@@ -14,6 +14,9 @@ importers:
       n8n-workflow:
         specifier: '*'
         version: 1.70.0
+      npx:
+        specifier: ^10.2.2
+        version: 10.2.2
     devDependencies:
       '@eslint/eslintrc':
         specifier: 3.2.0
@@ -1596,6 +1599,14 @@ packages:
   now-and-later@2.0.1:
     resolution: {integrity: sha512-KGvQ0cB70AQfg107Xvs/Fbu+dGmZoTRJp2TaPwcwQm3/7PteUyN2BCgk8KBMPGBUXZdVwyWS8fDCGFygBm19UQ==}
     engines: {node: '>= 0.10'}
+
+  npx@10.2.2:
+    resolution: {integrity: sha512-eImmySusyeWphzs5iNh791XbZnZG0FSNvM4KSah34pdQQIDsdTDhIwg1sjN3AIVcjGLpbQ/YcfqHPshKZQK1fA==}
+    deprecated: This package is now part of the npm CLI.
+    hasBin: true
+    bundledDependencies:
+      - npm
+      - libnpx
 
   number-is-nan@1.0.1:
     resolution: {integrity: sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==}
@@ -4213,6 +4224,8 @@ snapshots:
   now-and-later@2.0.1:
     dependencies:
       once: 1.4.0
+
+  npx@10.2.2: {}
 
   number-is-nan@1.0.1: {}
 

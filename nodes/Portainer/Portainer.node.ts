@@ -1,6 +1,7 @@
 import {
   INodeType,
   INodeTypeDescription,
+  NodeConnectionType,
 } from "n8n-workflow";
 import {
   N8NPropertiesBuilder,
@@ -27,8 +28,8 @@ export class Portainer implements INodeType {
     defaults: {
       name: "Portainer",
     },
-    inputs: '={{"main"}}',
-    outputs: '={{"main"}}',
+    inputs: [NodeConnectionType.Main],
+    outputs: [NodeConnectionType.Main],
     credentials: [
       {
         name: "portainerApi",

@@ -1,13 +1,9 @@
 export function fixOpenApi(doc: any) {
   for (let _path in doc["paths"] as any) {
-    // console.log(_path)
     let path = (doc["paths"] as any)[_path]
     for (let _method in path) {
-      // console.log(_path, _method)
       if (_path == "/session" && _method == "post" || true) {
-        // console.log(_path, _method, path[_method]["parameters"])
         if (path[_method]["parameters"] != undefined && path[_method]["parameters"].length > 0) {
-          // console.log(_path, _method, 'deal')
 
           path[_method]["parameters"] = path[_method]["parameters"].map((parameter: any) => {
             if (parameter["type"]) {
@@ -31,8 +27,6 @@ export function fixOpenApi(doc: any) {
             item["in"] != "body" && item["in"] != "formData" &&
               item["in"] != "query"
           )
-
-          // console.log("consumes", consumes)
 
           let requestBody = {
             "content": {} as any,
@@ -115,10 +109,6 @@ export function fixOpenApi(doc: any) {
 
           if (requestBody.flag == undefined) {
             path[_method]["requestBody"] = requestBody
-          }
-
-          if (_path == "/build") {
-            console.log(_path, _method, 'ok', JSON.stringify(path[_method], null, 2))
           }
         }
       }
