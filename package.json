@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-docker",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "n8n nodes for docker throungh portainer api",
   "keywords": [
     "n8n-community-node-package",
@@ -64,6 +64,7 @@
   },
   "dependencies": {
     "@devlikeapro/n8n-openapi-node": "^0.1.0",
-    "npx": "^10.2.2"
+    "npx": "^10.2.2",
+    "openapi-types": "^12.1.3"
   }
 }

@@ -9,14 +9,12 @@ import {
   N8NPropertiesBuilder,
   N8NPropertiesBuilderConfig,
 } from "@devlikeapro/n8n-openapi-node";
-import { fixOpenApi } from "../utils";
 import * as doc from "./openapi.json";
 import { portainerEndpoint } from "./descriptions";
 import { portainerApiRequest } from "./GeniricFunctions";
+import { PrivateOperationsCollector } from "../PrivateOperationsCollector";
 
-fixOpenApi(doc);
-
-const config: N8NPropertiesBuilderConfig = {};
+const config: N8NPropertiesBuilderConfig = { OperationsCollector: PrivateOperationsCollector };
 const parser = new N8NPropertiesBuilder(doc, config);
 const properties = parser.build();
 
